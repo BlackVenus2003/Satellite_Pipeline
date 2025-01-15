@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# Define directories
+mkdir -p raw_data processed_data reports
+
+# URLs for downloading files
+IMAGE_URL="https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57723/globe_west_172.jpg"
+GEOTIFF_URL="https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57723/globe_east_2048.tif"
+
+# Function to download files
+download_file() {
+    local url=$1
+    local dest=$2
+    wget -P "$dest" "$url"
+}
+
+# Download image and GeoTIFF
+download_file "$IMAGE_URL" raw_data/
+download_file "$GEOTIFF_URL" raw_data/
+
+# Process files
+for file in raw_data/*; do
+    BASENAME=$(basename "$file")
+    mv "$file" processed_data/"processed_${BASENAME}"
+done
+
+# Extract metadata from GeoTIFF
+python3 <<EOF
+import rasterio
+
+geotiff_file = 'processed_data/processed_globe_east_2048.tif'
+
+try:
+    with rasterio.open(geotiff_file) as src:
+        bounds = src.bounds
+        center_lat = (bounds[1] + bounds[3]) / 2
+        center_lon = (bounds[0] + bounds[2]) / 2
+
+        report_file = 'reports/summary.txt'
+        with open(report_file, 'w') as report:
+            report.write(f"Center Coordinates: (Lat: {center_lat}, Lon: {center_lon})\n")
+except Exception as e:
+    print(f"Error processing GeoTIFF: {e}")
+EOF
+
+# Verify GeoTIFF metadata using gdalinfo
+echo "Verifying GeoTIFF metadata..."
+gdalinfo processed_data/processed_globe_east_2048.tif > reports/geotiff_metadata_report.txt
+
+# Visualize the GeoTIFF data using Python
+python3 <<EOF
+import rasterio
+import matplotlib.pyplot as plt
+
+geotiff_file = 'processed_data/processed_globe_east_2048.tif'
+
+try:
+    with rasterio.open(geotiff_file) as src:
+        data = src.read(1)
+        plt.imshow(data, cmap="gray")
+        plt.colorbar(label="Pixel Intensity")
+        plt.savefig('reports/geotiff_visualization.png')
+except Exception as e:
+    print(f"Error visualizing GeoTIFF: {e}")
+EOF
+
+echo "Processing complete. Check the reports directory for outputs."
+
+if dataset.crs is None or dataset.transform is None:
+    print("GeoTIFF is not georeferenced. No spatial data available.")

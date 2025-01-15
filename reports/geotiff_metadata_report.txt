@@ -1,0 +1,23 @@
+Driver: GTiff/GeoTIFF
+Files: processed_data/processed_globe_east_2048.tif
+Size is 2048, 2048
+Metadata:
+  TIFFTAG_RESOLUTIONUNIT=2 (pixels/inch)
+  TIFFTAG_XRESOLUTION=72
+  TIFFTAG_YRESOLUTION=72
+Image Structure Metadata:
+  COMPRESSION=LZW
+  INTERLEAVE=PIXEL
+  PREDICTOR=2
+Corner Coordinates:
+Upper Left  (    0.0,    0.0)
+Lower Left  (    0.0, 2048.0)
+Upper Right ( 2048.0,    0.0)
+Lower Right ( 2048.0, 2048.0)
+Center      ( 1024.0, 1024.0)
+Band 1 Block=2048x1 Type=Byte, ColorInterp=Red
+Band 2 Block=2048x1 Type=Byte, ColorInterp=Green
+Band 3 Block=2048x1 Type=Byte, ColorInterp=Blue
+Band 4 Block=2048x1 Type=Byte, ColorInterp=Undefined
+Band 5 Block=2048x1 Type=Byte, ColorInterp=Undefined
+Band 6 Block=2048x1 Type=Byte, ColorInterp=Undefined

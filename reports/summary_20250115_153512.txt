@@ -1,0 +1,7 @@
+Processed Files:
+processed_globe_west_172.jpg
+processed_globe_east_2048.tif
+
+Metadata from GeoTIFF:
+Date/Time: No date info available
+Coordinates: (Lat: 1024.0, Lon: 1024.0)
