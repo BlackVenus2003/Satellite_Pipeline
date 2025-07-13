@@ -16,20 +16,6 @@ This project automates the processing of satellite imagery and GeoTIFF files to 
 - `processed_data/`: Directory for processed data outputs.
 - `reports/`: Directory for generated metadata summaries.
 
-## Setup Instructions
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/BlackVenus2003/Satellite_Pipeline.git
-   cd Satellite_Pipeline
-
-   pip install rasterio
-
-   chmod +x data_pipeline.sh
-
-   ./data_pipeline.sh
-
----
-
 ### **Usage**
 ```markdown
 ## Usage
